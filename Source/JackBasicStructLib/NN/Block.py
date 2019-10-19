@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from JackBasicLayer import *
+from Layer import *
 
 
 def Res2DBlock(x, ksize, name, training=True):

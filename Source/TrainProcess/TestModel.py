@@ -6,7 +6,7 @@ from Basic.Output import *
 from Evaluation.Accuracy import *
 from Evaluation.Loss import *
 from Evaluation.GradientsAnalysis import *
-from Model.Model import MSGFNet
+from Model.Interface import StereoMatchingNetWorks as smn
 import random
 
 
@@ -52,10 +52,20 @@ class TestModel(object):
                             start = self.args.batchSize * i
                             end = start + self.args.batchSize
                             # get the result
-                            coarse_map, refine_map = MSGFNet().NetWork(
-                                imgL[start:end], imgR[start:end],
-                                args.padedImgHeight,
-                                args.padedImgWidth, True)  # get the result
+
+                            # coarse_map, refine_map = MSGFNet().NetWork(
+                            #    imgL[start:end], imgR[start:end],
+                            #    args.padedImgHeight,
+                            #    args.padedImgWidth, True)  # get the result
+                            x = []
+                            x.append(imgL[start:end])
+                            x.append(imgR[start:end])
+                            x.append(args.padedImgHeight)
+                            x.append(args.padedImgWidth)
+                            res = smn().Inference('NLCANet', x, True)
+
+                            coarse_map = res[0]
+                            refine_map = res[1]
 
                             #coarse_map = coarse_map[:, :, :, 0:LABLE_NUM-1]
                             #coarse_map = tf.nn.softmax(coarse_map, axis=3)

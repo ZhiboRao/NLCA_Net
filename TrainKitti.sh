@@ -1,7 +1,7 @@
 #!/bin/bash
 echo $"Starting Net..."
-CUDA_VISIBLE_DEVICES=0,1 nohup python -u  -W ignore ./Source/main.py \
-                      --gpu 2 --phase train \
+CUDA_VISIBLE_DEVICES=0 nohup python -u  ./Source/main.py \
+                      --gpu 1 --phase train \
                       --dataset KITTI \
                       --modelDir ./PAModel/ \
                       --auto_save_num 10 \

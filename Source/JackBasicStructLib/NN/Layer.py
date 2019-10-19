@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from JackBasicOperation import *
+from Ops import *
 
 
 def AvgPooling2D(x, ksize, stride):

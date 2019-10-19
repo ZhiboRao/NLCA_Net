@@ -79,8 +79,20 @@ $ vi TestStart.sh
 ```
 
 ### Update log
+#### 2019-10-19 (New fork)
+1. New project from nlca-net and jacklib projects;
+2. Tested the project and make it work;
+3. Add some files
+4. The target of this project is to build the quantization network for stereo matching tasks.
+
+___
+
+#### 2019-06-17
+1. CHanged the file path;
+2. Finish review the code of jacklib
+
 #### 2019-01-05
-1. Fied some bugs in random crop process;
+1. Fixed some bugs in random crop process;
 2. Update the ReadMe
 
 #### 2018-12-15

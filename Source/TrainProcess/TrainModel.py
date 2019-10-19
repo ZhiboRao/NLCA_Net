@@ -6,7 +6,7 @@ from Basic.Output import *
 from Evaluation.Accuracy import *
 from Evaluation.Loss import *
 from Evaluation.GradientsAnalysis import *
-from Model.Model import MSGFNet
+from Model.Interface import StereoMatchingNetWorks as smn
 import random
 
 
@@ -72,9 +72,15 @@ class TrainModel(object):
                             end = start + self.args.batchSize
 
                             # get the result
-                            coarse_map, refine_map = MSGFNet().NetWork(
-                                imgL[start:end], imgR[start:end],
-                                args.corpedImgHeight, args.corpedImgWidth, True)
+                            x = []
+                            x.append(imgL[start:end])
+                            x.append(imgR[start:end])
+                            x.append(args.corpedImgHeight)
+                            x.append(args.corpedImgWidth)
+                            res = smn().Inference('NLCANet', x, True)
+
+                            coarse_map = res[0]
+                            refine_map = res[1]
 
                             tower_coarse_map.append(coarse_map)
                             tower_refine_map.append(refine_map)
