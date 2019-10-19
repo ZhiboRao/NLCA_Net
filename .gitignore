@@ -1,0 +1,14 @@
+*.pyc
+.idea
+sftp-config.json
+sftp-config-alt.json
+*.log
+*.png
+*.zip
+untitled.sublime-workspace
+/data
+/log
+/Result
+/SceneFlowResultImg
+/ResultImg
+/ResultImg*
