@@ -11,7 +11,7 @@ class StereoMatchingNetWorks(object):
     def Inference(self, name, args, is_training=True):
         for case in Switch(name):
             if case('NLCANet'):
-                res = nlca().Inference(args, is_training)
+                res = nlca(args, is_training)
                 break
             if case('GCNet'):
                 Info("This is GCNet")

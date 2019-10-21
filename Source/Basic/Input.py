@@ -72,14 +72,8 @@ def ReadRandomGroundTrue(path, x, y, w, h):
     return imgGround
 
 
-# Flying Things and Kitti
-def RandomCropRawImage(args, num):
-    # Get path
-    # Get path
-    pathL = GetPath(args.trainListPath, 2*num+1)
-    pathR = GetPath(args.trainListPath, 2*(num + 1))
-    pathGround = GetPath(args.trainLabelListPath, num + 1)
-
+def ReadData(args, pathL, pathR, pathGround):
+    # Flying Things and Kitti
     w = args.corpedImgWidth
     h = args.corpedImgHeight
 
@@ -88,8 +82,8 @@ def RandomCropRawImage(args, num):
 
     # random crop
     x, y = RandomOrg(imgL.shape[1], imgL.shape[0], w, h)
-    imgL = ImgSlice(imgL, x, y, w, h)
 
+    imgL = ImgSlice(imgL, x, y, w, h)
     imgL = ImgProcessing(imgL)
     imgL = np.expand_dims(imgL, axis=0)
 
@@ -100,11 +94,21 @@ def RandomCropRawImage(args, num):
     imgR = np.expand_dims(imgR, axis=0)
 
     # get groundtrue
-    clsImgGround = None
     if args.dataset == "KITTI":
         imgGround = ReadRandomGroundTrue(pathGround, x, y, w, h)
     else:
         imgGround = ReadRandomPfmGroundTrue(pathGround, x, y, w, h)
+
+    return imgL, imgR, imgGround
+
+
+def RandomCropRawImage(args, num):
+    # Get path
+    pathL = GetPath(args.trainListPath, 2*num+1)
+    pathR = GetPath(args.trainListPath, 2*(num + 1))
+    pathGround = GetPath(args.trainLabelListPath, num + 1)
+
+    imgL, imgR, imgGround = ReadData(args, pathL, pathR, pathGround)
 
     return imgL, imgR, imgGround
 
@@ -116,26 +120,7 @@ def ValRandomCropRawImage(args, num):
     pathR = GetPath(args.valListPath, 2*(num + 1))
     pathGround = GetPath(args.valLabelListPath, num + 1)
 
-    w = args.corpedImgWidth
-    h = args.corpedImgHeight
-    # get the img, the random crop
-    imgL = ReadImg(pathL)
-    x, y = RandomOrg(imgL.shape[1], imgL.shape[0], w, h)
-    imgL = ImgSlice(imgL, x, y, w, h)
-
-    imgL = ImgProcessing(imgL)
-    imgL = np.expand_dims(imgL, axis=0)
-
-    imgR = ReadImg(pathR)
-    imgR = ImgSlice(imgR, x, y, w, h)
-    imgR = ImgProcessing(imgR)
-    imgR = np.expand_dims(imgR, axis=0)
-
-    # get groundtrue
-    if args.dataset == "KITTI":
-        imgGround = ReadRandomGroundTrue(pathGround, x, y, w, h)
-    else:
-        imgGround = ReadRandomPfmGroundTrue(pathGround, x, y, w, h)
+    imgL, imgR, imgGround = ReadData(args, pathL, pathR, pathGround)
 
     return imgL, imgR, imgGround
 
@@ -285,9 +270,6 @@ class Dataloader(object):
 
             imgLs, imgRs, imgGrounds = GetBatchImage(self.args, self.randomTrainingList, i)
             i = i + 1
-
-            if i % 1000 == 0:
-                print "Finish %d" % i
 
             dataList = []
             dataList.append(imgLs)
