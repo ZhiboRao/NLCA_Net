@@ -59,6 +59,7 @@ def ParseArgs():
                         help="Learning rate. e.g. 0.01, 0.001, 0.0001")
     parser.add_argument('--pretrain', default=False,
                         type=Str2Bool, help='true or false')
+    parser.add_argument('--modelName', default='NLCANet', help='model name')
 
     # the image's size
     parser.add_argument('--corpedImgWidth', default=IMAGE_WIDTH, type=int,

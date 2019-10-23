@@ -1,9 +1,9 @@
 # -*coding: utf-8 -*-
 #
 # import the library
-from Basic.Define import *
 from Basic.ArgParser import *
 from Basic.Solution import *
+from JackBasicStructLib.Proc.Executor import *
 
 
 # main function
@@ -11,9 +11,9 @@ def main(args):
     InitPro(args)
 
     if args.phase == 'train':
-        Train(args)
+        Executor(args, True).Train()
     else:
-        Test(args)
+        Executor(args, False).Test()
 
 
 # execute the main function

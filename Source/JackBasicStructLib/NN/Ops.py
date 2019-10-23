@@ -1,16 +1,5 @@
 # -*- coding: utf-8 -*-
-import tensorflow as tf     # tensorflow
-from tensorflow.python.ops import control_flow_ops
-from tensorflow.python.training import moving_averages
-
-# the basic para
-CONV_WEIGHT_DECAY = 0.00001
-GC_VARIABLES = 'gc_variables'
-MOVING_AVERAGE_DECAY = 0.99
-BN_DECAY = MOVING_AVERAGE_DECAY
-UPDATE_OPS_COLLECTION = 'gc_update_ops'  # training ops
-BN_EPSILON = 1e-9
-GN_EPSILON = 1e-9
+from JackBasicStructLib.Basic.Define import *
 
 
 def Conv2D(x, ksize, stride, filters_out):
@@ -255,10 +244,26 @@ def GN(x, group_num):
         x = (x - mean) / tf.sqrt(var + GN_EPSILON)
 
         # per channel gamma and beta
-        gamma = tf.Variable(tf.constant(1.0, shape=[C]), dtype=tf.float32, name='gamma')
-        beta = tf.Variable(tf.constant(0.0, shape=[C]), dtype=tf.float32, name='beta')
-        gamma = tf.reshape(gamma, [1, C, 1, 1])
-        beta = tf.reshape(beta, [1, C, 1, 1])
+        beta = tf.get_variable('beta',
+                               shape=[1, C, 1, 1],
+                               initializer=tf.zeros_initializer(),
+                               dtype='float32',
+                               collections=[
+                                   tf.GraphKeys.GLOBAL_VARIABLES,
+                                   GC_VARIABLES],
+                               trainable=True)
+        gamma = tf.get_variable('gamma',
+                                shape=[1, C, 1, 1],
+                                initializer=tf.ones_initializer(),
+                                dtype='float32',
+                                collections=[
+                                    tf.GraphKeys.GLOBAL_VARIABLES,
+                                    GC_VARIABLES],
+                                trainable=True)
+        #gamma = tf.Variable(tf.constant(1.0, shape=[C]), dtype=tf.float32, name='gamma')
+        #beta = tf.Variable(tf.constant(0.0, shape=[C]), dtype=tf.float32, name='beta')
+        #gamma = tf.reshape(gamma, [1, C, 1, 1])
+        #beta = tf.reshape(beta, [1, C, 1, 1])
         output = tf.reshape(x, [-1, C, H, W]) * gamma + beta
 
         # tranpose: [bs, c, h, w, c] to [bs, h, w, c] following the paper

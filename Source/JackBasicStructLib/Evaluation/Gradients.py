@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import tensorflow as tf
+from JackBasicStructLib.Basic.Define import *
 
 
 # Ave_grad

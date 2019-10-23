@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
-from Define import *
-from PIL import Image
-import random
-import cv2
+from JackBasicStructLib.Basic.Define import *
 
 
-def Vertical_Flip(imgL, imgR, disp_gt, cls_gt):
+def RandomOrg(w, h, crop_w, crop_h):
+    x = random.randint(0, w - crop_w)
+    y = random.randint(0, h - crop_h)
+    return x, y
+
+
+def VerticalFlip(imgL, imgR, disp_gt, cls_gt):
     flip_prop = np.random.randint(low=0, high=2)
 
     if flip_prop == 0:
@@ -17,7 +20,7 @@ def Vertical_Flip(imgL, imgR, disp_gt, cls_gt):
     return imgL, imgR, disp_gt, cls_gt
 
 
-def Horizontal_Flip(img, imgGround, axis):
+def HorizontalFlip(img, imgGround, axis):
     '''
     Flip an image at 50% possibility
     :param image: a 3 dimensional numpy array representing an image
@@ -55,6 +58,14 @@ def NormalizeRGB(img):
         if minval != maxval:
             img[:, :, i] = (img[:, :, i]-minval)/(maxval-minval)
     return img
+
+
+def Standardization(img):
+    """ normalize image input """
+    img = img.astype(np.float32)
+    var = np.var(img, axis=(0, 1), keepdims=True)
+    mean = np.mean(img, axis=(0, 1), keepdims=True)
+    return (img - mean) / (np.sqrt(var) + EPSILON)
 
 
 def ImgProcessing(img):

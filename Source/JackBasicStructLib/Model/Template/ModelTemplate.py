@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from abc import ABCMeta, abstractmethod
+from JackBasicStructLib.Basic.Define import *
 
 
 class ModelTemplate(object):

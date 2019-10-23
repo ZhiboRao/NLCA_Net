@@ -2,7 +2,7 @@
 from Basic.Define import *
 from BasicModule import *
 from Basic.LogHandler import *
-from JackBasicStructLib.Model.ModelTemplate.Template import ModelTemplate
+from JackBasicStructLib.Model.Template.ModelTemplate import ModelTemplate
 from Evaluation.Accuracy import *
 from Evaluation.Loss import *
 import math

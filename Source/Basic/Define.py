@@ -46,15 +46,6 @@ IMAGE_ORG_HEIGHT = 384
 IMG_DEPTH = 3
 # image's num
 IMAGE_NUM = 20000
-# depth convert png
-DEPTH_DIVIDING = 256.0
-
-# output file setting
-TRAIN_ACC_FILE = 'train_acc.csv'                        # acc file's name
-TRAIN_LOSS_FILE = 'train_loss.csv'                      # loss file's name
-VAL_LOSS_FILE = 'val_loss.csv'                          # val file's name
-VAL_ACC_FILE = 'val_acc.csv'                          	# val file's name
-TEST_ACC_FILE = 'test_acc.csv'                          # test file's name
 
 # program setting
 IMG_DISPARITY = 192                                     # the image's disparity

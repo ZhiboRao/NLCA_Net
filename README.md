@@ -79,6 +79,10 @@ $ vi TestStart.sh
 ```
 
 ### Update log
+#### 2019-10-23 (v1)
+1. Finsih refactoring job;
+2. Add some files and change the Source/JackBasicStructLib
+
 #### 2019-10-19 (New fork)
 1. New project from nlca-net and jacklib projects;
 2. Tested the project and make it work;

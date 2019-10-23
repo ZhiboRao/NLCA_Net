@@ -1,30 +1,8 @@
 # -*- coding: utf-8 -*-
-import tensorflow as tf
+from JackBasicStructLib.Basic.Define import *
 from JackBasicStructLib.Evaluation.Gradients import *
 from JackBasicStructLib.Evaluation.Algorithm import *
-from Basic.LogHandler import *
-
-
-class Paras(object):
-    def __init__(self, lr, batchsize, gpus, log_path,
-                 save_dir, save_path, max_save_num=10):
-        self.lr = lr
-        self.batchsize = batchsize
-        self.gpus = gpus
-        self.log_path = log_path
-        self.save_dir = save_dir
-        self.save_path = save_path
-        self.max_save_num = max_save_num
-
-    def SetParas(self, lr, batchsize, gpus, log_path,
-                 save_dir, save_path, max_save_num=10):
-        self.lr = lr
-        self.batchsize = batchsize
-        self.gpus = gpus
-        self.log_path = log_path
-        self.save_path = save_path
-        self.save_dir = save_dir
-        self.max_save_num = max_save_num
+from JackBasicStructLib.Basic.Paras import *
 
 
 class BuildGraph(object):
@@ -32,12 +10,14 @@ class BuildGraph(object):
 
     def __init__(self, paras, model, training=True):
         super(BuildGraph, self).__init__()
+        Info("Beigin build network graph")
         self._paras = paras
         self._model = model
         self._input, self._label = self.__GenProcInterface(self._model)
         self._train_step, self._output, self._loss, self._acc = self.__BuildComputeringGraph(
             self._input, self._label, self._model, self._paras, training)
         self._sess, self._saver = self.__Postprocess(self._paras)
+        Info("Finished build network graph")
 
     def SetParas(self, paras):
         self._paras = paras
@@ -47,6 +27,7 @@ class BuildGraph(object):
 
     def SaveModel(self, epoch):
         self._saver.save(self._sess, self._paras.save_path, global_step=epoch)
+        Info('The model has been created')
 
     def Count(self):
         total_parameters = 0
@@ -232,7 +213,7 @@ class BuildGraph(object):
             opt = self.__InitOptimizer(model, paras, training)
 
             with tf.variable_scope(tf.get_variable_scope()):
-                for i in xrange(paras.gpus):
+                for i in xrange(paras.gpu):
                     output, grads, loss, acc = self.__InitGPUs(
                         input, label, model, paras, opt, i, training)
                     tower_output.append(output)

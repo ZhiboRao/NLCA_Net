@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
-import re
-import numpy as np
-import sys
-from PIL import Image
-import cv2
+from JackBasicStructLib.Basic.Define import *
 
 
-def readPFM(file):
+def ReadImg(path):
+    img = Image.open(path).convert("RGB")
+    img = np.array(img)
+    return img
+
+
+def ReadPFM(file):
     file = open(file, 'rb')
 
     color = None
@@ -46,7 +48,7 @@ def readPFM(file):
     return data, scale
 
 
-def writePfm(file, image, scale=1):
+def WritePFM(file, image, scale=1):
     file = open(file, mode='wb')
     color = None
 
@@ -76,36 +78,3 @@ def writePfm(file, image, scale=1):
     file.write(image_string)
 
     file.close()
-
-
-if __name__ == '__main__':
-    #f = '/Users/rhc/scan9_train/depth_map_0000.pfm'
-    #f = '//Users/rhc/WorkPlace/Program/StereoMatchingNextGen/ResultImg/GT/%0d'
-    f = '/Users/rhc/Downloads/pred_%d'
-    fileName = f % 9
-    img, _ = readPFM(fileName + '.pfm')
-    print img
-    print np.amax(img)
-    print np.amin(img)
-    img = (img - np.amin(img)) / (np.amax(img) - np.amin(img))
-    #imgArray = (img * float(256.0)).astype(np.uint16)
-    imgArray = (img * float(255.0)).astype(np.uint8)
-    cv2.imwrite(fileName + ".png", imgArray)
-    # print img
-    # for i in xrange(49):
-    #    fileName = f % i
-    #    img, _ = readPFM(fileName)
-    #    print i
-    #    print img.shape
-    #    img = np.ones((128, 160), np.float32)
-    #    writePfm(fileName, img)
-    # print img.shape
-    # print img.shape
-    #imgArray = (img * float(256.0)).astype(np.uint16)
-    #writePfm("/Users/rhc/1.pfm", img)
-    #cv2.imwrite("/Users/rhc/scan9_train/depth_map_0000.png", imgArray)
-    #img = Image.fromarray(img)
-    # print np.array(img)
-    # if img.mode != 'RGB':
-    #    img = img.convert('RGB')
-    # img.save('/Users/rhc/Downloads/0000/left/0006.png')

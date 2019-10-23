@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import tensorflow as tf
-import numpy as np
+from JackBasicStructLib.Basic.Define import *
 
 
 def ListAdd(listA, listB):
@@ -22,6 +21,7 @@ def ListDiv(listA, num):
 
     return res
 
+
 def ListMean(listA):
     res = []
     for i in range(len(listA)):
@@ -29,7 +29,7 @@ def ListMean(listA):
         res.append(tem_res)
 
     res = tf.concat(axis=0, values=res)
-    res = tf.reduce_mean(res,0)
+    res = tf.reduce_mean(res, 0)
 
     return res
 
