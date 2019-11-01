@@ -18,13 +18,18 @@ def ExtractUnaryFeatureModule(x, training=True):
 
 def BuildCostVolumeModule(imgL, imgR, disp_num, training=True):
     with tf.variable_scope("BuildCostVolume") as scope:
-        cost_vol = BuildCostVolumeBlock(imgL, imgR, disp_num)
+        cost_vol = []
+        for d in xrange(1, disp_num/4 + 1):
+            cost = BuildCostVolumeBlock(imgL, imgR, d)
+            cost = LearnCostBlock(cost, imgL, d, training=training)
+            cost_vol.append(cost)
+        cost_vol = tf.stack(cost_vol, axis=1)
     return cost_vol
 
 
 def MatchingModule(x, training=True):
     with tf.variable_scope("MatchingModule"):
-        x = FeatureMatchingBlock(x, training=training)
+        x = MatchingBlock(x, training=training)
         x = RecoverSizeBlock(x, training=training)
         x = SoftArgMinBlock(x)
     return x

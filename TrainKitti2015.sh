@@ -1,8 +1,9 @@
 #!/bin/bash
 echo $"Starting Net..."
-CUDA_VISIBLE_DEVICES=0,2 nohup python -u  ./Source/main.py \
+CUDA_VISIBLE_DEVICES=0,1 nohup python -u  ./Source/main.py \
                       --gpu 2 --phase train \
                       --dataset KITTI \
+                      --modelName CCANet \
                       --modelDir ./PAModel/ \
                       --auto_save_num 10 \
                       --imgNum 160 \

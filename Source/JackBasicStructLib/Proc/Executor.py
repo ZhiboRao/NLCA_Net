@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from JackBasicStructLib.Basic.Define import *
 from JackBasicStructLib.Evaluation.Algorithm import *
+from JackBasicStructLib.Basic.Processbar import *
 from BuildGraph import *
 from LoadWoker import *
 
@@ -29,9 +30,11 @@ class Executor(object):
 
         for epoch in xrange(self.__paras.maxEpoch):
             self.__TrainProc(self.__graph.TrainRun, self.__loadWoker.GetTrainData,
-                             num_tr_batch, self.__dataloader.ShowTrainingResult, epoch)
+                             num_tr_batch, self.__dataloader.ShowTrainingResult,
+                             epoch, "Train")
             self.__TrainProc(self.__graph.ValRun, self.__loadWoker.GetValData,
-                             num_val_batch, self.__dataloader.ShowValResult, epoch)
+                             num_val_batch, self.__dataloader.ShowValResult,
+                             epoch, "Val")
 
             if (epoch + 1) % self.__paras.save_epoch == 0:
                 self.__graph.SaveModel(epoch)
@@ -65,12 +68,13 @@ class Executor(object):
         format_str = ('[TestProcess] Finish Test (%.3f sec/batch)')
         Info(format_str % (duration))
 
-    def __TrainProc(self, execFunc, dataloader, num_batch, showFunc, epoch):
+    def __TrainProc(self, execFunc, dataloader, num_batch, showFunc, epoch, info="Train"):
         if num_batch == 0:
             return
 
         tr_loss = []
         tr_acc = []
+        process_bar = ShowProcess(num_batch, info)
         start_time = time.time()
 
         for step in xrange(num_batch):
@@ -78,6 +82,7 @@ class Executor(object):
             _, loss, acc = execFunc(input, label, True)
             tr_loss.append(loss)
             tr_acc.append(acc)
+            process_bar.show_process()
 
         duration = time.time() - start_time
         tr_loss = NumpyListMean(tr_loss)
