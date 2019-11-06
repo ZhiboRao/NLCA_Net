@@ -3,18 +3,18 @@ echo $"Starting Net..."
 CUDA_VISIBLE_DEVICES=0,1 nohup python -u  ./Source/main.py \
                       --gpu 2 --phase train \
                       --dataset KITTI \
-                      --modelName CCANet \
+                      --modelName NLCANet \
                       --modelDir ./PAModel/ \
                       --auto_save_num 10 \
-                      --imgNum 200 \
+                      --imgNum 194 \
                       --valImgNum 0 \
                       --maxEpochs 800 \
                       --learningRate 0.001 \
                       --outputDir ./Result/ \
-                      --trainListPath ./Dataset/trainlist_kitti_2015.txt \
-                      --trainLabelListPath ./Dataset/labellist_kitti_2015.txt \
-                      --valListPath ./Dataset/val_trainlist_kitti_2015.txt \
-                      --valLabelListPath ./Dataset/val_labellist_kitti_2015.txt \
+                      --trainListPath ./Dataset/trainlist_kitti_2012.txt \
+                      --trainLabelListPath ./Dataset/labellist_kitti_2012.txt \
+                      --valListPath ./Dataset/val_trainlist_kitti_2012.txt \
+                      --valLabelListPath ./Dataset/val_labellist_kitti_2012.txt \
                       --corpedImgWidth 512 \
                       --corpedImgHeight 256 \
                       --batchSize 4 \

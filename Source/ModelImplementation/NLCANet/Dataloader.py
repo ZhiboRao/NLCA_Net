@@ -59,6 +59,14 @@ class DataHandler(DataHandlerTemplate):
         OutputData(self.fd_val_acc, loss[0])
         OutputData(self.fd_val_loss, acc[1])
 
+    def ShowIntermediateResult(self, epoch, loss, acc):
+        format_str = ('e: %d, loss: %.3f, ' +
+                      'loss_0: %.3f, loss_1: %.3f, ' +
+                      'acc_0: %.3f, acc_1: %.3f')
+        info_str = format_str % (epoch, loss[0], loss[1], loss[2],
+                                 acc[0], acc[1])
+        return info_str
+
     def SaveResult(self, output, supplement, imgID, testNum):
         args = self.__args
         res = np.array(output)
@@ -71,8 +79,8 @@ class DataHandler(DataHandlerTemplate):
                 temRes = temRes[top_pads[i*args.batchSize+j]:, :-left_pads[i*args.batchSize+j]]
                 self.kfd.SaveTestData(args, temRes, args.gpu*args.batchSize *
                                       imgID + i*args.batchSize + j)
-                Info('[TestProcess] Finish ' +
-                     str(args.gpu * args.batchSize*imgID + i*args.batchSize + j) + ' image.')
+                # Info('[TestProcess] Finish ' +
+                #     str(args.gpu * args.batchSize*imgID + i*args.batchSize + j) + ' image.')
 
     def __CreateRes(self, imgLs, imgRs, imgGrounds):
         input = []

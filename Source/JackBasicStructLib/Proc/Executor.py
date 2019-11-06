@@ -59,11 +59,17 @@ class Executor(object):
             return
 
         start_time = time.time()
+        process_bar = ShowProcess(num_tr_batch, 'Test')
+
         for step in range(num_tr_batch):
             for testID in range(self.__paras.test_times):
                 input, supplement = self.__loadWoker.GetTrainData()
                 output = self.__graph.TestRun(input, supplement, False)
                 self.__dataloader.SaveResult(output, supplement, step, testID)
+            duration = (time.time() - start_time) / (step + 1)
+            duration = (num_tr_batch - step - 1) * duration
+            process_bar.show_process(restTime=duration)
+
         duration = time.time() - start_time
         format_str = ('[TestProcess] Finish Test (%.3f sec/batch)')
         Info(format_str % (duration))
@@ -78,11 +84,17 @@ class Executor(object):
         start_time = time.time()
 
         for step in xrange(num_batch):
+            #tem_start_time = time.time()
             input, label = dataloader()
             _, loss, acc = execFunc(input, label, True)
             tr_loss.append(loss)
             tr_acc.append(acc)
-            process_bar.show_process()
+            tem_loss = NumpyListMean(tr_loss)
+            tem_acc = NumpyListMean(tr_acc)
+            info_str = self.__dataloader.ShowIntermediateResult(epoch, tem_loss, tem_acc)
+            duration = (time.time() - start_time) / (step + 1)
+            duration = (num_batch - step - 1) * duration
+            process_bar.show_process(showInfo=info_str, restTime=duration)
 
         duration = time.time() - start_time
         tr_loss = NumpyListMean(tr_loss)

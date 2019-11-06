@@ -59,6 +59,14 @@ class DataHandler(DataHandlerTemplate):
         OutputData(self.fd_val_acc, loss[0])
         OutputData(self.fd_val_loss, acc[1])
 
+    def ShowIntermediateResult(self, epoch, loss, acc):
+        format_str = ('epochs: %d, loss: %.6f, ' +
+                      'coarse_disp_loss: %.6f, refine_disp_loss: %.6f, ' +
+                      'coarse_acc: %.6f, refine_acc: %.6f')
+        info_str = format_str % (epoch, loss[0], loss[1], loss[2],
+                                 acc[0], acc[1])
+        return info_str
+
     def SaveResult(self, output, supplement, imgID, testNum):
         args = self.__args
         res = np.array(output)
