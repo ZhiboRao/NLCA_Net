@@ -64,10 +64,12 @@ class Executor(object):
         for step in range(num_tr_batch):
             for testID in range(self.__paras.test_times):
                 input, supplement = self.__loadWoker.GetTrainData()
+                #start = time.time()
                 output = self.__graph.TestRun(input, supplement, False)
                 self.__dataloader.SaveResult(output, supplement, step, testID)
             duration = (time.time() - start_time) / (step + 1)
             duration = (num_tr_batch - step - 1) * duration
+            #duration = time.time() - start
             process_bar.show_process(restTime=duration)
 
         duration = time.time() - start_time
