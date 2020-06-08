@@ -56,9 +56,8 @@ class NLCANet(ModelTemplate):
         acc = []
 
         coarse_acc = MatchingAcc(output[self.output_coarse_img_id], label[self.label_disp_id])
-        acc.append(coarse_acc[1])
-
         refine_acc = MatchingAcc(output[self.output_refine_img_id], label[self.label_disp_id])
+        acc.append(coarse_acc[1])
         acc.append(refine_acc[1])
 
         return acc

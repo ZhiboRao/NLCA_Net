@@ -34,3 +34,7 @@ class DataHandlerTemplate(object):
     @abstractmethod
     def SaveResult(self, output, supplement, imgID, testNum):
         pass
+
+    @abstractmethod
+    def ShowIntermediateResult(self, epoch, loss, acc):
+        return info_str

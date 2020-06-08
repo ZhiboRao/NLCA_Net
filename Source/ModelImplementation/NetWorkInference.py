@@ -2,9 +2,10 @@
 from Basic.Switch import Switch
 from Basic.LogHandler import *
 from Basic.Define import *
-from NLCANet.Model import NLCANet as nlca
-from NLCANet.Dataloader import *
 from JackBasicStructLib.Basic.Paras import *
+from NLCANet.Model import NLCANet as nlca
+from CCANET.Model import CCANet as cca
+from NLCANet.Dataloader import *
 
 
 def Args2Paras(args, is_training):
@@ -31,8 +32,11 @@ class NetWorkInference(object):
                 model = nlca(args, is_training)
                 dataHandler = DataHandler(args)
                 break
-            if case('GCNet'):
-                Info("This is GCNet")
+            if case('CCANet'):
+                Info("Begin loading CCA_Net Model")
+                paras = Args2Paras(args, is_training)
+                model = cca(args, is_training)
+                dataHandler = DataHandler(args)
                 break
             if case():
                 Error('NetWork Type Error!!!')

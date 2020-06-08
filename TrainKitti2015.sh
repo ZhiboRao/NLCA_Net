@@ -1,12 +1,13 @@
 #!/bin/bash
 echo $"Starting Net..."
-CUDA_VISIBLE_DEVICES=0,2 nohup python -u  ./Source/main.py \
+CUDA_VISIBLE_DEVICES=0,1 nohup python -u  ./Source/main.py \
                       --gpu 2 --phase train \
                       --dataset KITTI \
+                      --modelName CCANet \
                       --modelDir ./PAModel/ \
                       --auto_save_num 10 \
-                      --imgNum 160 \
-                      --valImgNum 40 \
+                      --imgNum 200 \
+                      --valImgNum 0 \
                       --maxEpochs 800 \
                       --learningRate 0.001 \
                       --outputDir ./Result/ \
@@ -16,7 +17,7 @@ CUDA_VISIBLE_DEVICES=0,2 nohup python -u  ./Source/main.py \
                       --valLabelListPath ./Dataset/val_labellist_kitti_2015.txt \
                       --corpedImgWidth 512 \
                       --corpedImgHeight 256 \
-                      --batchSize 2 \
+                      --batchSize 4 \
                       --pretrain false > TrainKitti.log 2>&1 &
 echo $"You can get the running log via the command line that tail -f TrainKitti.log"
 echo $"The result will be saved in the result folder"

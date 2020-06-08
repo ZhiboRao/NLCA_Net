@@ -260,10 +260,7 @@ def GN(x, group_num):
                                     tf.GraphKeys.GLOBAL_VARIABLES,
                                     GC_VARIABLES],
                                 trainable=True)
-        #gamma = tf.Variable(tf.constant(1.0, shape=[C]), dtype=tf.float32, name='gamma')
-        #beta = tf.Variable(tf.constant(0.0, shape=[C]), dtype=tf.float32, name='beta')
-        #gamma = tf.reshape(gamma, [1, C, 1, 1])
-        #beta = tf.reshape(beta, [1, C, 1, 1])
+
         output = tf.reshape(x, [-1, C, H, W]) * gamma + beta
 
         # tranpose: [bs, c, h, w, c] to [bs, h, w, c] following the paper

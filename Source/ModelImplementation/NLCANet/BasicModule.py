@@ -18,10 +18,6 @@ def ExtractUnaryFeatureModule(x, training=True):
 
 def BuildCostVolumeModule(imgL, imgR, disp_num, training=True):
     with tf.variable_scope("BuildCostVolume") as scope:
-        #imgL = ExtractCostFeatureBlock(imgL, training=training)
-        # scope.reuse_variables()
-        #imgR = ExtractCostFeatureBlock(imgR, training=training)
-
         cost_vol = BuildCostVolumeBlock(imgL, imgR, disp_num)
     return cost_vol
 

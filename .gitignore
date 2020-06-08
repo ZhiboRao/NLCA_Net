@@ -1,7 +1,7 @@
 *.pyc
 .idea
 sftp-config.json
-sftp-config-alt.json
+sftp-config-alt*.json
 *.log
 *.png
 *.zip
@@ -13,3 +13,4 @@ untitled.sublime-workspace
 /ResultImg
 /ResultImg*
 sftp-config-alt2.json
+/Submission
