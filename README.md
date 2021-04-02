@@ -12,6 +12,11 @@
     opencv == 3.4.0  
     PIL == 5.1.0  
 
+### Model
+We have upload our model in baidu disk:
+https://pan.baidu.com/s/11FNUv8M5L4aO_Are9UjRUA
+password: qrho
+
 ### Hardware Environment
 - GPU: 1080TI * 4 or other memory at least 11G.(Batch size: 2)  
 if you not have four gpus, you could change the para of model. The Minimum hardware requirement:  
@@ -20,23 +25,25 @@ if you not have four gpus, you could change the para of model. The Minimum hardw
 ### Train the model by running:
 1. Get the Training list or Testing list
 ```
-./GenPath.sh
+$ ./GenPath.sh
 ```
 Please check the path. The source code in Source/Tools.
 
 2. Run the pre-training.sh
 ```
-./Pre-Train.sh
+$ ./Pre-Train.sh
 ```
 
 3. Run the trainstart.sh
 ```
-./TrainStart.sh
+$ ./TrainKitti2012.sh # for kitti2012
+$ ./TrainKitti2015.sh # for kitti2015
 ```
 
 4. Run the teststart.sh
 ```
-$ ./TestStart.sh
+$ ./TestKitt2012.sh # for 2012
+$ ./TestKitt2015.sh # for 2015
 ```
 
 if you want to change the para of the model, you can change the *.sh file. Such as:
