@@ -11,7 +11,6 @@ DEPTH_DIVIDING = 256.0
 class KittiFlyingDataloader(object):
     def __init__(self):
         super(KittiFlyingDataloader, self).__init__()
-        pass
 
     def SaveTestData(self, args, img, num):
         path = self.__GenerateOutImgPath(args.resultImgDir, args.saveFormat, args.imgType, num)
@@ -57,8 +56,7 @@ class KittiFlyingDataloader(object):
         return imgLs, imgRs, top_pads, left_pads
 
     def __GenerateOutImgPath(self, dirPath, filenameFormat, imgType, num):
-        path = dirPath + filenameFormat % num + imgType
-        return path
+        return dirPath + filenameFormat % num + imgType
 
     def __DepthToImgArray(self, img):
         img = np.array(img)

@@ -5,21 +5,11 @@ from JackBasicStructLib.Basic.Define import *
 def ListAdd(listA, listB):
     assert len(listA) == len(listB)
 
-    res = []
-    for i in range(len(listA)):
-        tem_res = listA[i] + listB[i]
-        res.append(tem_res)
-
-    return res
+    return [listA[i] + listB[i] for i in range(len(listA))]
 
 
 def ListDiv(listA, num):
-    res = []
-    for i in range(len(listA)):
-        tem_res = listA[i] / num
-        res.append(tem_res)
-
-    return res
+    return [listA[i] / num for i in range(len(listA))]
 
 
 def ListMean(listA):

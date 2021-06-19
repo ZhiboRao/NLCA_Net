@@ -76,7 +76,7 @@ class LoadWoker(object):
 
             self._trainQueue.put(dataList)
 
-            i = i + 1
+            i += 1
 
     def __ValDataGenQueue_Thread(self):
         i = 0
@@ -91,11 +91,9 @@ class LoadWoker(object):
             input, label = self._dataloader.GetValData(self._paras,
                                                        self._randomValList, i)
 
-            dataList = []
-            dataList.append(input)
-            dataList.append(label)
+            dataList = [input, label]
             self._valQueue.put(dataList)
-            i = i + 1
+            i += 1
 
     def GetTrainData(self):
         dataList = self._trainQueue.get()

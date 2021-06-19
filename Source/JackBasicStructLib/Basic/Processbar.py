@@ -28,11 +28,7 @@ class ShowProcess():
         num_arrow = int(self.i * self.max_arrow / self.max_steps)
         num_line = self.max_arrow - num_arrow
         percent = self.i * 100.0 / self.max_steps
-        if self.i >= self.max_steps:
-            infoDone = ', ' + self.infoDone
-        else:
-            infoDone = ''
-
+        infoDone = ', ' + self.infoDone if self.i >= self.max_steps else ''
         if restTime != '':
             restTime = '(time remaining: %.3f sec)' % restTime
 

@@ -49,8 +49,7 @@ class CCANet(ModelTemplate):
         return label
 
     def Optimizer(self, lr):
-        opt = tf.train.AdamOptimizer(learning_rate=lr)
-        return opt
+        return tf.train.AdamOptimizer(learning_rate=lr)
 
     def Accuary(self, output, label):
         acc = []
@@ -76,8 +75,7 @@ class CCANet(ModelTemplate):
     def Inference(self, input, training=True):
         imgL, imgR = self.__GetVar(input)
         coarse_map, refine_map = self.__NetWork(imgL, imgR, self.height, self.width, training)
-        output = self.__GenRes(coarse_map, refine_map)
-        return output
+        return self.__GenRes(coarse_map, refine_map)
 
     def __NetWork(self, imgL, imgR, height, width, training=True):
         with tf.variable_scope("CCANet"):
@@ -109,7 +107,4 @@ class CCANet(ModelTemplate):
         return input[self.input_imgL_id], input[self.input_imgR_id]
 
     def __GenRes(self, coarse_map, refine_map):
-        res = []
-        res.append(coarse_map)
-        res.append(refine_map)
-        return res
+        return [coarse_map, refine_map]

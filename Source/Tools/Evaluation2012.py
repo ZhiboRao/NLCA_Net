@@ -63,10 +63,10 @@ def Acc(result, labels):
         for j in xrange(err.shape[1]):
             if groundTrue[i, j] != 0:     # this point is effect
                 point = err[i, j]         # get the error
-                errTotal = errTotal + point
+                errTotal += point
                 if point > ACC_PIXEL and point / groundTrue[i, j] > RELATE_ERR:
-                    num = num + 1
-                total = total + 1
+                    num += 1
+                total += 1
 
     acc = 0
     if total != 0:

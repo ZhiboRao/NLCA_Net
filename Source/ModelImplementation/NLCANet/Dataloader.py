@@ -63,9 +63,8 @@ class DataHandler(DataHandlerTemplate):
         format_str = ('e: %d, loss: %.3f, ' +
                       'loss_0: %.3f, loss_1: %.3f, ' +
                       'acc_0: %.3f, acc_1: %.3f')
-        info_str = format_str % (epoch, loss[0], loss[1], loss[2],
+        return format_str % (epoch, loss[0], loss[1], loss[2],
                                  acc[0], acc[1])
-        return info_str
 
     def SaveResult(self, output, supplement, imgID, testNum):
         args = self.__args
@@ -91,10 +90,7 @@ class DataHandler(DataHandlerTemplate):
         return input, label
 
     def __CreateSupplement(self, top_pads, left_pads):
-        supplement = []
-        supplement.append(top_pads)
-        supplement.append(left_pads)
-        return supplement
+        return [top_pads, left_pads]
 
     def __CreateResultFile(self, args):
         # create the dir

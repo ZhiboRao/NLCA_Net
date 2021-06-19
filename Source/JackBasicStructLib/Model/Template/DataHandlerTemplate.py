@@ -9,7 +9,6 @@ class DataHandlerTemplate(object):
 
     def __init__(self):
         super(DataHandlerTemplate, self).__init__()
-        pass
 
     @abstractmethod
     def GetTrainingData(self, paras, trainList, num):

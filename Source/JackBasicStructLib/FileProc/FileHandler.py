@@ -29,10 +29,7 @@ def OutputData(outputFile, data):
 
 
 def OpenLogFile(path, is_continue=True):
-    if is_continue == False:
-        if os.path.exists(path):
-            os.remove(path)
+    if is_continue == False and os.path.exists(path):
+        os.remove(path)
 
-    file = open(path, 'a')
-
-    return file
+    return open(path, 'a')
