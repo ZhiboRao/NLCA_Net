@@ -103,8 +103,8 @@ def Acc(result, labels):
                 if groundTrue[k, i, j] != 0:     # this point is effect
                     point = err[k, i, j]         # get the error
                     if point > ACC_PIXEL and point / groundTrue[k, i, j] > RELATE_ERR:
-                        num = num + 1
-                    total = total + 1
+                        num += 1
+                    total += 1
 
     acc = 0
     if total != 0:
@@ -118,9 +118,7 @@ def Acc(result, labels):
 
 def AccClassification(res, labels):
     correct_prediction = tf.equal(tf.argmax(res, 1), tf.argmax(labels, 1))
-    accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
-
-    return accuracy
+    return tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
 
 
 if __name__ == "__main__":

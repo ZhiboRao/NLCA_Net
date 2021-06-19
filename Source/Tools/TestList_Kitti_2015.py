@@ -16,18 +16,15 @@ ImgNum = 200
 
 
 def GenRawPath(fileFolder, num):
-    path = RootPath + RawDataFolder % fileFolder + FileName % num + \
+    return RootPath + RawDataFolder % fileFolder + FileName % num + \
         RawDataType
-    return path
 
 
 def OpenFile():
     if os.path.exists(TestListPath):
         os.remove(TestListPath)
 
-    fd_test_list = open(TestListPath, 'a')
-
-    return fd_test_list
+    return open(TestListPath, 'a')
 
 
 def OutputData(outputFile, data):
@@ -53,7 +50,7 @@ def GenList(fd_test_list):
         OutputData(fd_test_list, rawLeftPath)
         OutputData(fd_test_list, rawRightPath)
 
-        total = total + 1
+        total += 1
 
     return total
 

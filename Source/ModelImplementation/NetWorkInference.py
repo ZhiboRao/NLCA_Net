@@ -9,14 +9,13 @@ from NLCANet.Dataloader import *
 
 
 def Args2Paras(args, is_training):
-    paras = Paras(args.learningRate, args.batchSize,
+    return Paras(args.learningRate, args.batchSize,
                   args.gpu, args.imgNum,
                   args.valImgNum, args.maxEpochs,
                   args.log, args.modelDir,
                   MODEL_NAME, args.auto_save_num,
                   10, args.pretrain,
                   1, is_training)
-    return paras
 
 
 class NetWorkInference(object):

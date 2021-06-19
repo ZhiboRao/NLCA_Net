@@ -30,15 +30,13 @@ def ConvertNumToChar(folderId):
 
 
 def GenRawPath(folderId, folderNum, fileFolder, num):
-    path = RootPath + RawDataFolder % folderId + FolderNameFormat % folderNum + \
+    return RootPath + RawDataFolder % folderId + FolderNameFormat % folderNum + \
         FileName % (fileFolder, num) + RawDataType
-    return path
 
 
 def GenLabelPath(folderId, folderNum, fileFolder, num):
-    path = RootPath + LableFolder % folderId + FolderNameFormat % folderNum + \
+    return RootPath + LableFolder % folderId + FolderNameFormat % folderNum + \
         FileName % (fileFolder, num) + LabelType
-    return path
 
 
 def OpenFile():
@@ -80,8 +78,8 @@ def GenList(fd_train_list, fd_label_list):
                 OutputData(fd_train_list, rawLeftPath)
                 OutputData(fd_train_list, rawRightPath)
                 OutputData(fd_label_list, lablePath)
-                num = num + 1
-                total = total + 1
+                num += 1
+                total += 1
     return total
 
 

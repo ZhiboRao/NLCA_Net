@@ -109,5 +109,4 @@ def TestDataAugmentation(img):
     img2 = np.array(img1)[:, ::-1]  # h_ v
     img3 = np.concatenate([img1, img2])
     img4 = np.array(img3)[:, :, ::-1]  # w_ v
-    img5 = np.concatenate([img3, img4])
-    return img5
+    return np.concatenate([img3, img4])
