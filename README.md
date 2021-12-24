@@ -25,30 +25,30 @@ if you not have four gpus, you could change the para of model. The Minimum hardw
 ### Train the model by running:
 1. Get the Training list or Testing list
 ```
-$ ./GenPath.sh
+$ ./Scripts/GenPath.sh
 ```
 Please check the path. The source code in Source/Tools.
 
 2. Run the pre-training.sh
 ```
-$ ./Pre-Train.sh
+$ ./Scripts/Pre-Train.sh
 ```
 
 3. Run the trainstart.sh
 ```
-$ ./TrainKitti2012.sh # for kitti2012
-$ ./TrainKitti2015.sh # for kitti2015
+$ ./Scripts/TrainKitti2012.sh # for kitti2012
+$ ./Scripts/TrainKitti2015.sh # for kitti2015
 ```
 
 4. Run the teststart.sh
 ```
-$ ./TestKitt2012.sh # for 2012
-$ ./TestKitt2015.sh # for 2015
+$ ./Scripts/TestKitt2012.sh # for 2012
+$ ./Scripts/TestKitt2015.sh # for 2015
 ```
 
 if you want to change the para of the model, you can change the *.sh file. Such as:
 ```
-$ vi TestStart.sh
+$ vi ./Scripts/TestStart.sh
 ```
 
 ### File Struct
@@ -76,10 +76,9 @@ $ vi TestStart.sh
 ├── log # The graph of model. Auto Bulid                   
 │   ├── events.out.tfevents.1541751559.ubuntu      
 │   └── ...       
-├── GetPath.sh
-├── Pre-Train.sh
-├── TestStart.sh  
-├── TrainStart.sh
+├── Scripts
+│   ├── GetPath.sh
+│   └── ...       
 ├── LICENSE
 ├── requirements.txt
 └── README.md               
