@@ -101,13 +101,13 @@ def convert_files_to_npz(input_folder, out_folder, out_prefix):
         left_agls.append(left_agl)
 
         # update the image counter
-        count = count + 1
+        count += 1
 
         # when counter gets too high, save new files
         if ((count >= max_per_train) and (i < num_train)) or (i == num_train - 1):
 
             # update the file counter
-            num_files = num_files + 1
+            num_files += 1
 
             # print counts for categories
             print(' ')

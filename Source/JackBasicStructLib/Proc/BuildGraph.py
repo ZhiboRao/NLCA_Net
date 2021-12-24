@@ -85,38 +85,27 @@ class BuildGraph(object):
 
     def TestRun(self, input, label, training=False):
         feed_dict = self.__GenInterfaceDict(input, label, training)
-        output = self._sess.run(self._output,
+        return self._sess.run(self._output,
                                 feed_dict=feed_dict)
-        return output
 
     def __GenInterfaceDict(self, input, label, training=True):
 
         res = {}
-        if training == True:
-            input_dict = self.__List2Dict(self._input, input)
-            label_dict = self.__List2Dict(self._label, label)
-            res = dict(input_dict.items() + label_dict.items())
-        else:
-            res = self.__List2Dict(self._input, input)
+        if training != True:
+            return self.__List2Dict(self._input, input)
 
-        return res
+        input_dict = self.__List2Dict(self._input, input)
+        label_dict = self.__List2Dict(self._label, label)
+        return dict(input_dict.items() + label_dict.items())
 
     def __List2Dict(self, key, value):
         assert len(key) == len(value)
-        res = {}
-        for i in range(len(key)):
-            res[key[i]] = value[i]
-
-        return res
+        return {key[i]: value[i] for i in range(len(key))}
 
     def __GenProcInterface(self, model, training=True):
         input = self.__GenInputInterface(self._model)
 
-        if training == True:
-            label = self.__GenLabelInterface(self._model)
-        else:
-            label = None
-
+        label = self.__GenLabelInterface(self._model) if training == True else None
         return input, label
 
     def __GenInputInterface(self, model):
@@ -172,8 +161,7 @@ class BuildGraph(object):
 
     def __Optimizer(self, opt, tower_grads, global_step):
         grads = AverageGradients(tower_grads)
-        train_step = opt.apply_gradients(grads, global_step=global_step)
-        return train_step
+        return opt.apply_gradients(grads, global_step=global_step)
 
     def __CalculateEvaluationStandard(self, tower_loss, tower_acc):
         tower_loss = ListMean(tower_loss)
@@ -183,11 +171,9 @@ class BuildGraph(object):
     def __InitOptimizer(self, model, paras, training=True):
         if training == True:
             Info("The learning rate: %f" % paras.lr)
-            opt = model.Optimizer(paras.lr)
+            return model.Optimizer(paras.lr)
         else:
-            opt = None
-
-        return opt
+            return None
 
     def __ApplyOptimizer(self, opt, tower_grads, tower_loss, tower_acc, global_step, training=True):
         if training == True:

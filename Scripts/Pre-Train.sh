@@ -4,7 +4,7 @@ CUDA_VISIBLE_DEVICES=2,3 nohup python -u ./Source/main.py \
 	--gpu 2 --phase train \
 	--dataset FlyingThing \
 	--modelName NLCANet \
-	--modelDir /Users/rhc \
+	--modelDir ./PAModel/ \
 	--auto_save_num 1 \
 	--imgNum 35454 \
 	--valImgNum 0 \

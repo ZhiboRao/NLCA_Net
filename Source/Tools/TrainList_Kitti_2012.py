@@ -27,9 +27,8 @@ Times = 5     # the sample of val
 
 
 def GenRawPath(fileFolder, num):
-    path = RootPath + RawDataFolder % fileFolder + FileName % num + \
+    return RootPath + RawDataFolder % fileFolder + FileName % num + \
         RawDataType
-    return path
 
 
 def OpenFile():
@@ -81,7 +80,7 @@ def GenList(fd_train_list, fd_label_list, fd_val_train_list, fd_val_label_list):
             OutputData(fd_train_list, rawRightPath)
             OutputData(fd_label_list, lablePath)
 
-        total = total + 1
+        total += 1
 
     return total
 

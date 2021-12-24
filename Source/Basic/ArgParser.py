@@ -72,5 +72,4 @@ def ParseArgs():
     parser.add_argument('--padedImgHeight', default=IMAGE_ORG_HEIGHT, type=int,
                         help="Image's width. e.g. 384," +
                         "In the testing process is the Expanded size ")
-    args = parser.parse_args()
-    return args
+    return parser.parse_args()

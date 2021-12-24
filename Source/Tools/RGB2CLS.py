@@ -23,13 +23,14 @@ def sequential_to_las_labels(seq_labels):
 def category_to_color(category_image):
     # define colors
     # color table is here: https://www.rapidtables.com/web/color/RGB_Color.html
-    colors = []
-    colors.append((165, 42, 42))      # 0  brown (ground)
-    colors.append((0, 128, 0))        # 1  green (trees)
-    colors.append((255, 0, 0))        # 2  red (buildings)
-    colors.append((0, 0, 255))        # 3  blue (water)
-    colors.append((128, 128, 128))    # 4  gray (elevated road)
-    colors.append((0, 0, 0))          # 6  black (other)
+    colors = [
+        (165, 42, 42),
+        (0, 128, 0),
+        (255, 0, 0),
+        (0, 0, 255),
+        (128, 128, 128),
+        (0, 0, 0),
+    ]
 
     # convert categories to color image
     rows = category_image.shape[0]
